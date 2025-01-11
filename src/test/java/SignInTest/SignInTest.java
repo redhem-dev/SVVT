@@ -69,6 +69,34 @@ public class SignInTest {
 
     }
 
+    @Test
+    void signIn2 () throws InterruptedException {
+
+        Thread.sleep(2000);
+
+        WebElement signInButton = webDriver.findElement(By.xpath("//*[@id=\"signin2\"]"));
+        signInButton.click();
+        Thread.sleep(2000);
+
+        WebElement usernameLogIn = webDriver.findElement(By.id("username2"));
+        WebElement passwordLogin = webDriver.findElement(By.id("userpassx"));
+
+        usernameLogIn.sendKeys("rogoedhem7@gmail.com");
+        Thread.sleep(1500);
+        passwordLogin.sendKeys("qwertyuiop019283746");
+        Thread.sleep(1500);
+        WebElement logInButton = webDriver.findElement(By.id("signin"));
+        logInButton.click();
+        Thread.sleep(3000);
+
+        WebElement errormessage = webDriver.findElement(By.xpath("//*[@id=\"err\"]/span/b/font"));
+
+        assertEquals("Pogrešno korisničko ime ili lozinka!", errormessage.getText());
+
+
+
+    }
+
 
 
     @AfterAll
