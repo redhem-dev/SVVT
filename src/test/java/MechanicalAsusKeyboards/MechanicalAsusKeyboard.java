@@ -37,7 +37,7 @@ public class MechanicalAsusKeyboard {
     }
 
     @Test
-    void signIn () throws InterruptedException {
+    void mechanicalAsusKeyboardTest () throws InterruptedException {
 
         Thread.sleep(2000);
 
@@ -63,6 +63,10 @@ public class MechanicalAsusKeyboard {
         assertEquals("ASUS Mehanička Gaming Tastatura Rog Falchion Ace", keyboardName.getText());
 
     }
+
+    /*
+    Test made to assure that the only Asus Mechanical Keyboard is named -> ASUS Mehanička Gaming Tastatura Rog Falchion Ace
+     */
 
 
 
