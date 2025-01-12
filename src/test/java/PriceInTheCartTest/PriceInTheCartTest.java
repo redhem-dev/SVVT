@@ -127,7 +127,7 @@ public class PriceInTheCartTest {
     }
 
     @Test
-    void priceInTheCartTest2 () throws InterruptedException {
+    void priceInTheCartTest_emptyCart () throws InterruptedException {
 
         Thread.sleep(2000);
 
