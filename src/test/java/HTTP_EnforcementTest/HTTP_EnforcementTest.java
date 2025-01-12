@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HTTP_EnforcementTest {
@@ -34,15 +36,32 @@ public class HTTP_EnforcementTest {
 
     @Test
     public void testHttpsEnforcing() throws InterruptedException {
-        // Step 1: Navigate to the HTTP version of the URL
+
         String httpUrl = baseUrl.replace("https://", "http://");
         webDriver.get(httpUrl);
         webDriver.manage().window().maximize();
         Thread.sleep(2000);
 
-        // Step 2: Verify the redirection to HTTPS
+
         String currentUrl = webDriver.getCurrentUrl();
         assertTrue(currentUrl.startsWith("https://"), "The site should redirect to HTTPS");
+    }
+
+    @Test
+    public void testNoMixedContent() {
+
+        // Open the HTTPS site
+        webDriver.get(baseUrl);
+
+        // Execute JavaScript to retrieve all resources loaded on the page
+        @SuppressWarnings("unchecked")
+        List<String> resources = (List<String>) js.executeScript(
+                "return Array.from(document.querySelectorAll('img, script, link, iframe, video, audio, source')).map(el => el.src || el.href).filter(url => url !== undefined);");
+
+        // Assert that all resources use HTTPS
+        boolean allHttps = resources.stream().allMatch(resource -> resource.startsWith("https://"));
+
+        assertTrue(allHttps, "All resources on the page should use HTTPS to avoid mixed content issues.");
     }
 
     @AfterAll
